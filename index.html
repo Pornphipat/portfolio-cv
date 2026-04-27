@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Computer Engineer & AI Researcher</title>
+    <title>Pornphipat Pholprueksa | Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
         :root {
+            /* Dark Theme Variables (First Draft) */
             --bg-dark: #0a0a0a;
             --bg-card: #141414;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
             --purple-accent: #a855f7;
             --purple-glow: rgba(168, 85, 247, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -28,7 +30,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         /* Navigation */
@@ -40,10 +42,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .logo {
@@ -62,7 +64,8 @@
             color: var(--text-main);
             text-decoration: none;
             margin-left: 2rem;
-            font-weight: 400;
+            font-weight: 500;
+            font-size: 0.95rem;
             transition: color 0.3s ease;
         }
 
@@ -72,7 +75,7 @@
 
         /* Hero Section */
         #hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -83,32 +86,39 @@
         .hero-glow {
             position: absolute;
             top: 20%;
-            right: 10%;
-            width: 400px;
-            height: 400px;
+            right: 15%;
+            width: 450px;
+            height: 450px;
             background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
             z-index: -1;
-            filter: blur(50px);
-            animation: pulse 4s infinite alternate;
+            filter: blur(60px);
+            animation: pulse 5s infinite alternate;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.1); opacity: 0.8; }
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(1.1); opacity: 0.7; }
         }
 
         h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1rem;
         }
 
+        .name-highlight {
+            color: var(--purple-accent);
+        }
+
         .typing-container {
             display: inline-block;
-            color: var(--purple-accent);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-muted);
             border-right: 3px solid var(--purple-accent);
-            padding-right: 5px;
+            padding-right: 8px;
+            margin-bottom: 2rem;
             animation: blink 0.7s infinite;
         }
 
@@ -116,11 +126,74 @@
             50% { border-color: transparent; }
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2rem;
+        /* Contact & Buttons */
+        .contact-wrapper {
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .contact-links a, .contact-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .contact-links a:hover, .contact-btn:hover, .contact-btn.active {
+            border-color: var(--purple-accent);
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--purple-accent);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+        }
+
+        /* Hidden Contact Info Box */
+        .contact-info {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--purple-accent);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(168, 85, 247, 0.15);
+            animation: fadeIn 0.3s ease;
+            z-index: 10;
+            min-width: 250px;
+        }
+
+        .contact-info.show {
+            display: block;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Sections General */
@@ -133,6 +206,7 @@
             margin-bottom: 3rem;
             display: inline-block;
             position: relative;
+            font-weight: 800;
         }
 
         h2.section-title::after {
@@ -140,29 +214,55 @@
             position: absolute;
             bottom: -10px;
             left: 0;
-            width: 50%;
-            height: 3px;
+            width: 40%;
+            height: 4px;
             background: var(--purple-accent);
+            border-radius: 2px;
+        }
+
+        /* Skills specific */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            border-color: var(--purple-accent);
+            box-shadow: 0 5px 15px var(--purple-glow);
+            transform: translateY(-3px);
+            color: var(--purple-accent);
         }
 
         /* Grid Layouts for Cards */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
         /* Interactive Cards */
         .card {
             background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
         }
 
         .card.visible {
@@ -173,156 +273,233 @@
         .card:hover {
             transform: translateY(-10px);
             border-color: var(--purple-accent);
-            box-shadow: 0 10px 30px var(--purple-glow);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px var(--purple-glow);
         }
 
         .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
             color: var(--text-main);
+            font-weight: 800;
+        }
+
+        .card h4 {
+            font-size: 1rem;
+            color: var(--purple-accent);
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .card p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 1.5rem;
+            margin-top: auto;
         }
 
         .tech-tag {
             background: rgba(168, 85, 247, 0.1);
-            color: var(--purple-accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            color: #d8b4fe;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(168, 85, 247, 0.2);
         }
 
         .date-tag {
             font-size: 0.85rem;
-            color: var(--purple-accent);
+            color: var(--text-muted);
             margin-bottom: 0.5rem;
             display: block;
-            font-weight: 600;
+            font-family: monospace;
+            font-weight: 500;
+        }
+        
+        .award-highlight {
+            display: inline-block;
+            background: linear-gradient(90deg, #a855f7, #c084fc);
+            color: #000000;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 3rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
             color: var(--text-muted);
+            margin-top: 50px;
+            background-color: var(--bg-card);
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">Port<span>folio.</span></a>
+        <a href="#" class="logo">Pornphipat<span>.</span></a>
         <div class="nav-links">
             <a href="#about">About</a>
             <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
+            <a href="#projects">Projects & Awards</a>
         </div>
     </nav>
 
     <section id="hero">
         <div class="hero-glow"></div>
-        <h1>Architecting the <br><span class="typing-container" id="typewriter"></span></h1>
-        <p class="hero-subtitle">Computer Engineering student bridging the gap between high-performance computing, artificial intelligence, and bioinformatics.</p>
+        <h1>Hi, I'm <span class="name-highlight">Pornphipat</span></h1>
+        <div class="typing-container" id="typewriter"></div>
+        <p style="max-width: 600px; color: var(--text-muted); font-size: 1.1rem; font-weight: 400;">
+            Computer Engineering student at Mahidol University. I specialize in Computer Vision, Machine Learning, and developing impactful tech solutions that bridge engineering and sustainability.
+        </p>
+        
+        <div class="contact-wrapper">
+            <div class="contact-links">
+                <button id="contactBtn" class="contact-btn">Contact Me</button>
+                <a href="https://www.linkedin.com/in/pornphipat-pho" target="_blank">LinkedIn</a>
+                <a href="https://github.com/7373R" target="_blank">GitHub</a>
+            </div>
+            
+            <div id="contactInfo" class="contact-info">
+                <p>📧 pornphipat.pho@gmail.com</p>
+                <p>📞 095-631-9708</p>
+            </div>
+        </div>
     </section>
 
     <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div style="max-width: 800px; color: var(--text-muted); font-size: 1.1rem;">
-            <p style="margin-bottom: 1rem;">I am a Computer Engineering student based at Mahidol University, expanding my research horizons globally as an upcoming Research Scholar at Ontario Tech University. </p>
-            <p>My core focus lies in the application of Machine Learning and Deep Learning to solve complex challenges in healthcare and medicinal drug discovery. Whether I'm optimizing containerized environments on a MacBook M2, structuring scalable NoSQL databases, or generating technical documentation in Typst and LaTeX, I build efficient, intelligent systems.</p>
+        <h2 class="section-title">Skills & Technologies</h2>
+        <div class="skills-container scroll-anim">
+            <div class="skill-badge">Python (Intermediate)</div>
+            <div class="skill-badge">C / C++</div>
+            <div class="skill-badge">SQL & JavaScript</div>
+            <div class="skill-badge">Java</div>
+            <div class="skill-badge">OpenCV</div>
+            <div class="skill-badge">YOLOv8 & YOLOv11L</div>
+            <div class="skill-badge">PyTorch & TensorFlow</div>
+            <div class="skill-badge">Pandas & NumPy</div>
+            <div class="skill-badge">Leadership & Project Management</div>
         </div>
     </section>
 
     <section id="experience">
-        <h2 class="section-title">Experience</h2>
+        <h2 class="section-title">Leadership & Experience</h2>
         <div class="grid-container">
             <div class="card scroll-anim">
-                <span class="date-tag">Aug 2026 – Jan 2027</span>
-                <h3>Research Scholar</h3>
-                <p><strong>Ontario Tech University, Canada</strong></p>
-                <p>Collaborating with university faculty on specialized engineering research. Focused on integrating advanced software paradigms with global scientific data frameworks.</p>
-            </div>
-            
-            <div class="card scroll-anim">
-                <span class="date-tag">Ongoing</span>
-                <h3>Lead Developer & Researcher</h3>
-                <p><strong>MANORAA Platform Upgrade</strong></p>
-                <p>Leading the architectural shift of a drug discovery platform. Migrating biological interaction data to Document and Hierarchy NoSQL structures and implementing AI-driven navigation tools.</p>
+                <span class="date-tag">Jul 2025 - Apr 2026</span>
+                <h3>President, GearLeague</h3>
+                <h4>Inter-Engineering Sports Event</h4>
+                <p>Led collaboration among 9 engineering universities, managing over 100 staff members to organize a national sports competition. Built strong inter-university relationships and long-term institutional connections.</p>
                 <div class="tech-stack">
-                    <span class="tech-tag">NoSQL</span>
-                    <span class="tech-tag">Deep Learning</span>
-                    <span class="tech-tag">Bioinformatics</span>
+                    <span class="tech-tag">Leadership</span>
+                    <span class="tech-tag">Large-scale Management</span>
                 </div>
             </div>
 
             <div class="card scroll-anim">
-                <span class="date-tag">2026</span>
-                <h3>Event Operations Lead</h3>
-                <p><strong>GearLeague 6th & COCI Day</strong></p>
-                <p>Spearheaded event logistics, drafted operational agendas, and secured corporate sponsorships for major university engineering community events.</p>
+                <span class="date-tag">Aug 2023 - Present</span>
+                <h3>President of the Department</h3>
+                <h4>Computer Engineering, Mahidol University</h4>
+                <p>Represented and supported students within the department. Promoted communication, collaboration, and empathy through open discussions and peer support initiatives.</p>
                 <div class="tech-stack">
-                    <span class="tech-tag">Leadership</span>
-                    <span class="tech-tag">Agile Planning</span>
+                    <span class="tech-tag">Communication</span>
+                    <span class="tech-tag">Student Advocacy</span>
+                </div>
+            </div>
+            
+            <div class="card scroll-anim">
+                <span class="date-tag">Jan 2024 - Dec 2024</span>
+                <h3>President, ClickCamp15</h3>
+                <h4>Mahidol University</h4>
+                <p>Directed a 4-day computer engineering camp with 500+ applicants and 80 participants. Provided high school students with practical learning experiences while fostering growth among 100+ staff members.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Project Management</span>
+                    <span class="tech-tag">Event Organization</span>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="projects">
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title">Featured Projects & Awards</h2>
         <div class="grid-container">
+            
             <div class="card scroll-anim">
-                <h3>Caveman Butler</h3>
-                <p>A Personal AI Chief of Staff. Developed a local LLM-powered agent designed to autonomously summarize emails, manage complex scheduling, and organize daily administrative tasks securely.</p>
+                <div class="award-highlight">🏆 3rd Place - Invent for the Planet 2026</div>
+                <h3>CelluRICE</h3>
+                <h4>Green-Tech & Circular Bioeconomy</h4>
+                <p>Developed a solution to mitigate PM 2.5 pollution by transforming agricultural rice stubble into high-value cellulose. The process utilizes mechanical milling, alkaline treatment (NaOH), and oxidative bleaching (H2O2) to extract pure cellulose, turning agricultural waste into profitable industrial material.</p>
                 <div class="tech-stack">
-                    <span class="tech-tag">Local LLMs</span>
+                    <span class="tech-tag">Green Technology</span>
+                    <span class="tech-tag">Innovation</span>
+                    <span class="tech-tag">Sustainability</span>
+                </div>
+            </div>
+
+            <div class="card scroll-anim">
+                <div class="award-highlight">💻 Academic Project</div>
+                <h3>Real-Time Smoking Detection</h3>
+                <h4>Computer Vision System</h4>
+                <p>Developed a real-time detection system to enforce smoke-free policies indoors using YOLOv8/YOLOv11L and OpenCV. The AI model identifies Persons, Cigarettes, and Smoke, utilizing custom proximity logic to confirm violations and trigger alerts via the LINE Messaging API.</p>
+                <div class="tech-stack">
                     <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Agentic AI</span>
+                    <span class="tech-tag">YOLO</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">LINE API</span>
                 </div>
             </div>
 
             <div class="card scroll-anim">
-                <h3>Healthcare RAG Implementation</h3>
-                <p>Implemented Retrieval-Augmented Generation (RAG) pipelines for processing and querying complex healthcare research, utilizing SMILES strings and biochemical data.</p>
+                <div class="award-highlight">📊 Academic Project</div>
+                <h3>Stroke Risk Prediction Model</h3>
+                <h4>Machine Learning Pipeline</h4>
+                <p>Analyzed medical data and built ML models to predict stroke risk, tackling extreme class imbalance. Utilized SMOTE-NC and Tomek Links for data synthesis and cleaning. The final CatBoost model, optimized via GridSearchCV, achieved 88% accuracy and 64% recall on imbalanced data.</p>
                 <div class="tech-stack">
-                    <span class="tech-tag">RAG</span>
-                    <span class="tech-tag">Machine Learning</span>
-                    <span class="tech-tag">Data Architecture</span>
+                    <span class="tech-tag">CatBoost</span>
+                    <span class="tech-tag">SMOTE-NC</span>
+                    <span class="tech-tag">Data Science</span>
+                </div>
+            </div>
+            
+            <div class="card scroll-anim">
+                <div class="award-highlight">🏆 1st Place - Invent for the Planet 2024</div>
+                <h3>Decentralized Power Access</h3>
+                <h4>Global Innovation Challenge</h4>
+                <p>Designed a portable renewable-energy battery system tailored for African urban areas, enabling reliable and decentralized power access.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Ideation</span>
+                    <span class="tech-tag">Hardware Design</span>
                 </div>
             </div>
 
-            <div class="card scroll-anim">
-                <h3>High-Performance Dev Environment</h3>
-                <p>Built a custom, lightweight container orchestration setup using Docker and Colima optimized for Apple Silicon (M2) to handle rigorous data processing without hardware bottlenecking.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Docker</span>
-                    <span class="tech-tag">Colima</span>
-                    <span class="tech-tag">System Architecture</span>
-                </div>
-            </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Portfolio. Built with Gemini.</p>
+        <p>&copy; 2026 Pornphipat Pholprueksa. Built with clean code and modern design.</p>
     </footer>
 
     <script>
+        // Interactive Contact Info Toggle
+        document.getElementById('contactBtn').addEventListener('click', function() {
+            const infoBox = document.getElementById('contactInfo');
+            this.classList.toggle('active');
+            infoBox.classList.toggle('show');
+        });
+
         // Interactive Typing Effect
-        const words = ["Future of AI", "Next-Gen Databases", "Healthcare Solutions"];
+        const words = ["Computer Engineer.", "AI & ML Developer.", "Tech Innovator.", "Leader."];
         let i = 0;
         let timer;
 
