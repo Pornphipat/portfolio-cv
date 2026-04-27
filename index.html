@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Computer Engineer & AI Researcher</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --purple-accent: #a855f7;
+            --purple-glow: rgba(168, 85, 247, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--purple-accent);
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--purple-accent);
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(50px);
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .typing-container {
+            display: inline-block;
+            color: var(--purple-accent);
+            border-right: 3px solid var(--purple-accent);
+            padding-right: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        /* Sections General */
+        section {
+            padding: 100px 10%;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--purple-accent);
+        }
+
+        /* Grid Layouts for Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Interactive Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--purple-accent);
+            box-shadow: 0 10px 30px var(--purple-glow);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--purple-accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .date-tag {
+            font-size: 0.85rem;
+            color: var(--purple-accent);
+            margin-bottom: 0.5rem;
+            display: block;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">Port<span>folio.</span></a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-glow"></div>
+        <h1>Architecting the <br><span class="typing-container" id="typewriter"></span></h1>
+        <p class="hero-subtitle">Computer Engineering student bridging the gap between high-performance computing, artificial intelligence, and bioinformatics.</p>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div style="max-width: 800px; color: var(--text-muted); font-size: 1.1rem;">
+            <p style="margin-bottom: 1rem;">I am a Computer Engineering student based at Mahidol University, expanding my research horizons globally as an upcoming Research Scholar at Ontario Tech University. </p>
+            <p>My core focus lies in the application of Machine Learning and Deep Learning to solve complex challenges in healthcare and medicinal drug discovery. Whether I'm optimizing containerized environments on a MacBook M2, structuring scalable NoSQL databases, or generating technical documentation in Typst and LaTeX, I build efficient, intelligent systems.</p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="grid-container">
+            <div class="card scroll-anim">
+                <span class="date-tag">Aug 2026 – Jan 2027</span>
+                <h3>Research Scholar</h3>
+                <p><strong>Ontario Tech University, Canada</strong></p>
+                <p>Collaborating with university faculty on specialized engineering research. Focused on integrating advanced software paradigms with global scientific data frameworks.</p>
+            </div>
+            
+            <div class="card scroll-anim">
+                <span class="date-tag">Ongoing</span>
+                <h3>Lead Developer & Researcher</h3>
+                <p><strong>MANORAA Platform Upgrade</strong></p>
+                <p>Leading the architectural shift of a drug discovery platform. Migrating biological interaction data to Document and Hierarchy NoSQL structures and implementing AI-driven navigation tools.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">NoSQL</span>
+                    <span class="tech-tag">Deep Learning</span>
+                    <span class="tech-tag">Bioinformatics</span>
+                </div>
+            </div>
+
+            <div class="card scroll-anim">
+                <span class="date-tag">2026</span>
+                <h3>Event Operations Lead</h3>
+                <p><strong>GearLeague 6th & COCI Day</strong></p>
+                <p>Spearheaded event logistics, drafted operational agendas, and secured corporate sponsorships for major university engineering community events.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Leadership</span>
+                    <span class="tech-tag">Agile Planning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="grid-container">
+            <div class="card scroll-anim">
+                <h3>Caveman Butler</h3>
+                <p>A Personal AI Chief of Staff. Developed a local LLM-powered agent designed to autonomously summarize emails, manage complex scheduling, and organize daily administrative tasks securely.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Local LLMs</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Agentic AI</span>
+                </div>
+            </div>
+
+            <div class="card scroll-anim">
+                <h3>Healthcare RAG Implementation</h3>
+                <p>Implemented Retrieval-Augmented Generation (RAG) pipelines for processing and querying complex healthcare research, utilizing SMILES strings and biochemical data.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">Machine Learning</span>
+                    <span class="tech-tag">Data Architecture</span>
+                </div>
+            </div>
+
+            <div class="card scroll-anim">
+                <h3>High-Performance Dev Environment</h3>
+                <p>Built a custom, lightweight container orchestration setup using Docker and Colima optimized for Apple Silicon (M2) to handle rigorous data processing without hardware bottlenecking.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Colima</span>
+                    <span class="tech-tag">System Architecture</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Portfolio. Built with clean code and modern design.</p>
+    </footer>
+
+    <script>
+        // Interactive Typing Effect
+        const words = ["Future of AI", "Next-Gen Databases", "Healthcare Solutions"];
+        let i = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[i].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('typewriter').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000);
+                    return false;
+                }
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('typewriter').innerHTML = word.join("");
+                } else {
+                    if (words.length > (i + 1)) { i++; } 
+                    else { i = 0; }
+                    typingEffect();
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+
+        typingEffect();
+
+        // Interactive Scroll Animation (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-anim').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
