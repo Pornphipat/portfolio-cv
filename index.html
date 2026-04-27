@@ -111,6 +111,12 @@
             color: var(--purple-accent);
         }
 
+        /* Typing Effect Fix */
+        .typing-wrapper {
+            min-height: 3.5rem; /* Prevents layout jump when text is deleted */
+            margin-bottom: 1.5rem;
+        }
+
         .typing-container {
             display: inline-block;
             font-size: 2rem;
@@ -118,8 +124,8 @@
             color: var(--text-muted);
             border-right: 3px solid var(--purple-accent);
             padding-right: 8px;
-            margin-bottom: 2rem;
             animation: blink 0.7s infinite;
+            white-space: nowrap;
         }
 
         @keyframes blink {
@@ -156,7 +162,7 @@
         .contact-links a:hover, .contact-btn:hover, .contact-btn.active {
             border-color: var(--purple-accent);
             background: rgba(168, 85, 247, 0.1);
-            color: var(--purple-accent);
+            color: var(--text-main);
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
         }
 
@@ -359,7 +365,11 @@
     <section id="hero">
         <div class="hero-glow"></div>
         <h1>Hi, I'm <span class="name-highlight">Pornphipat</span></h1>
-        <div class="typing-container" id="typewriter"></div>
+        
+        <div class="typing-wrapper">
+            <span class="typing-container" id="typewriter"></span>
+        </div>
+
         <p style="max-width: 600px; color: var(--text-muted); font-size: 1.1rem; font-weight: 400;">
             Computer Engineering student at Mahidol University. I specialize in Computer Vision, Machine Learning, and developing impactful tech solutions that bridge engineering and sustainability.
         </p>
@@ -487,7 +497,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Pornphipat Pholprueksa. Built with clean code and modern design.</p>
+        <p>&copy; 2026 Pornphipat Pholprueksa. Built with Gemini.</p>
     </footer>
 
     <script>
@@ -498,43 +508,47 @@
             infoBox.classList.toggle('show');
         });
 
-        // Interactive Typing Effect
+        // Robust Typing Effect Fix
         const words = ["Computer Engineer.", "AI & ML Developer.", "Tech Innovator.", "Leader."];
-        let i = 0;
-        let timer;
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
 
-        function typingEffect() {
-            let word = words[i].split("");
-            var loopTyping = function() {
-                if (word.length > 0) {
-                    document.getElementById('typewriter').innerHTML += word.shift();
-                } else {
-                    setTimeout(deletingEffect, 2000);
-                    return false;
-                }
-                timer = setTimeout(loopTyping, 100);
-            };
-            loopTyping();
+        function typeWriter() {
+            const currentWord = words[wordIndex];
+            const typeElement = document.getElementById('typewriter');
+            
+            if (isDeleting) {
+                // ลบข้อความ
+                typeElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // พิมพ์ข้อความ
+                typeElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            // ความเร็วของการพิมพ์/ลบ
+            let typingSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                // พิมพ์สุดคำแล้ว รอ 2 วินาทีก่อนลบ
+                typingSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // ลบสุดคำแล้ว เปลี่ยนคำต่อไป รอ 0.5 วินาทีก่อนเริ่มพิมพ์ใหม่
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typingSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typingSpeed);
         }
 
-        function deletingEffect() {
-            let word = words[i].split("");
-            var loopDeleting = function() {
-                if (word.length > 0) {
-                    word.pop();
-                    document.getElementById('typewriter').innerHTML = word.join("");
-                } else {
-                    if (words.length > (i + 1)) { i++; } 
-                    else { i = 0; }
-                    typingEffect();
-                    return false;
-                }
-                timer = setTimeout(loopDeleting, 50);
-            };
-            loopDeleting();
-        }
-
-        typingEffect();
+        // เรียกใช้งานตอนโหลดหน้าเว็บ
+        document.addEventListener("DOMContentLoaded", function() {
+            typeWriter();
+        });
 
         // Interactive Scroll Animation (Intersection Observer)
         const observer = new IntersectionObserver((entries) => {
