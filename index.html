@@ -19,21 +19,6 @@
             --border-color: rgba(255, 255, 255, 0.08);
         }
 
-        /* --- 🎛 Custom Cyber Scrollbar --- */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--purple-accent), var(--pink-accent));
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--pink-accent), var(--purple-accent));
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -118,15 +103,8 @@
         h1 { font-size: 4.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
 
         .name-highlight {
-            background: linear-gradient(90deg, var(--purple-accent), var(--pink-accent), var(--purple-accent));
-            background-size: 200% auto;
-            color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: shine 3s linear infinite;
+            color: var(--purple-accent);
         }
-
-        @keyframes shine { to { background-position: 200% center; } }
 
         .typing-wrapper { min-height: 3.5rem; margin-bottom: 1.5rem; }
         .typing-container {
