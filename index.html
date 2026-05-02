@@ -114,7 +114,7 @@
 
         /* Typing Effect Fix */
         .typing-wrapper {
-            min-height: 3.5rem; /* Prevents layout jump when text is deleted */
+            min-height: 3.5rem;
             margin-bottom: 1.5rem;
         }
 
@@ -270,6 +270,8 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(40px);
+            display: flex;
+            flex-direction: column;
         }
 
         .card.visible {
@@ -289,6 +291,16 @@
             color: var(--text-main);
             font-weight: 800;
         }
+        
+        .card h3 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .card h3 a:hover {
+            color: var(--purple-accent);
+        }
 
         .card h4 {
             font-size: 1rem;
@@ -301,6 +313,7 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
         .tech-stack {
@@ -339,6 +352,7 @@
             font-weight: 800;
             margin-bottom: 1rem;
             letter-spacing: 0.5px;
+            align-self: flex-start;
         }
 
         /* Footer */
@@ -445,6 +459,24 @@
     <section id="projects">
         <h2 class="section-title">Featured Projects & Awards</h2>
         <div class="grid-container">
+            
+            <!-- NEW PROJECT ADDED HERE -->
+            <div class="card scroll-anim">
+                <div class="award-highlight">💻 Embedded AI Project</div>
+                <h3>Chief of Staff Dashboard</h3>
+                <h4>AI-Powered Smart Display</h4>
+                <p>
+                    Developed an AI-powered personal dashboard for embedded systems (like Raspberry Pi) featuring an interactive touchscreen UI built with Pygame. The system acts as a smart assistant, summarizing daily tasks, emails, and calendar events using the Google Gemini API, and utilizes Google Cloud Pub/Sub for real-time notifications.
+                    <br><br>
+                    <a href="https://github.com/7373R/embedded_final_proj" target="_blank" style="color: var(--purple-accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;">🔗 Source Code on GitHub</a>
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Gemini AI</span>
+                    <span class="tech-tag">Pygame</span>
+                    <span class="tech-tag">Google Cloud</span>
+                </div>
+            </div>
             
             <div class="card scroll-anim">
                 <div class="award-highlight">🏆 3rd Place - Invent for the Planet 2026</div>
