@@ -9,14 +9,29 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
 
         :root {
-            /* Dark Theme Variables (First Draft) */
             --bg-dark: #0a0a0a;
             --bg-card: #141414;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
             --purple-accent: #a855f7;
+            --pink-accent: #ec4899;
             --purple-glow: rgba(168, 85, 247, 0.4);
             --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* --- 🎛 Custom Cyber Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--purple-accent), var(--pink-accent));
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--pink-accent), var(--purple-accent));
         }
 
         * {
@@ -32,6 +47,42 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.7;
+            /* เพิ่ม Base Layer ให้เห็น Apple Glass ชัดขึ้น */
+            background-image: radial-gradient(circle at 15% 50%, rgba(168, 85, 247, 0.08), transparent 25%),
+                              radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
+        }
+
+        /* --- 🧠 Background Canvas (Neural Network) --- */
+        canvas#networkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        /* --- 🔦 Mouse Spotlight --- */
+        .mouse-spotlight {
+            position: fixed;
+            top: -225px; /* Offset Center (450/2) */
+            left: -225px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, var(--purple-glow) 0%, transparent 60%);
+            z-index: -2;
+            pointer-events: none;
+            filter: blur(40px);
+            will-change: transform;
+            /* Transition ทำให้ไฟสปอตไลต์ตามเมาส์แบบมีน้ำหนักหนืดๆ ดูแพง */
+            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+            animation: pulse-light 4s infinite alternate;
+        }
+
+        @keyframes pulse-light {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            100% { opacity: 0.8; transform: scale(1.1); }
         }
 
         /* Navigation */
@@ -43,36 +94,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--text-main);
-            text-decoration: none;
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: var(--purple-accent);
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--purple-accent);
-        }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--text-main); text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: var(--purple-accent); }
+        .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 2rem; font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--purple-accent); }
 
         /* Hero Section */
         #hero {
@@ -84,289 +115,192 @@
             position: relative;
         }
 
-        .hero-glow {
-            position: absolute;
-            top: 20%;
-            right: 15%;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
-            z-index: -1;
-            filter: blur(60px);
-            animation: pulse 5s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.4; }
-            100% { transform: scale(1.1); opacity: 0.7; }
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
+        h1 { font-size: 4.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
 
         .name-highlight {
-            color: var(--purple-accent);
+            background: linear-gradient(90deg, var(--purple-accent), var(--pink-accent), var(--purple-accent));
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine 3s linear infinite;
         }
 
-        /* Typing Effect Fix */
-        .typing-wrapper {
-            min-height: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
+        @keyframes shine { to { background-position: 200% center; } }
 
+        .typing-wrapper { min-height: 3.5rem; margin-bottom: 1.5rem; }
         .typing-container {
-            display: inline-block;
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            border-right: 3px solid var(--purple-accent);
-            padding-right: 8px;
-            animation: blink 0.7s infinite;
-            white-space: nowrap;
+            display: inline-block; font-size: 2rem; font-weight: 600; color: var(--text-muted);
+            border-right: 3px solid var(--purple-accent); padding-right: 8px;
+            animation: blink 0.7s infinite; white-space: nowrap;
         }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
+        @keyframes blink { 50% { border-color: transparent; } }
 
         /* Contact & Buttons */
-        .contact-wrapper {
-            margin-top: 2rem;
-            position: relative;
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
+        .contact-wrapper { margin-top: 2rem; position: relative; }
+        .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
         .contact-links a, .contact-btn {
-            color: var(--text-main);
-            text-decoration: none;
-            border: 1px solid var(--border-color);
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.03);
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            display: inline-flex;
-            align-items: center;
+            color: var(--text-main); text-decoration: none; border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem; border-radius: 30px; font-size: 0.9rem; font-weight: 600;
+            transition: all 0.3s ease; background: rgba(255, 255, 255, 0.03); cursor: pointer;
+            display: inline-flex; align-items: center;
+            backdrop-filter: blur(10px);
         }
-
         .contact-links a:hover, .contact-btn:hover, .contact-btn.active {
-            border-color: var(--purple-accent);
-            background: rgba(168, 85, 247, 0.1);
-            color: var(--text-main);
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+            border-color: var(--purple-accent); background: rgba(168, 85, 247, 0.15);
+            color: var(--text-main); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            transform: translateY(-2px);
         }
 
-        /* Hidden Contact Info Box */
         .contact-info {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--purple-accent);
-            padding: 1.2rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(168, 85, 247, 0.15);
-            animation: fadeIn 0.3s ease;
-            z-index: 10;
-            min-width: 250px;
+            display: none; position: absolute; top: 100%; left: 0; margin-top: 1rem;
+            background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--purple-accent); padding: 1.2rem 1.5rem; border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(168, 85, 247, 0.2);
+            animation: fadeIn 0.3s ease; z-index: 10; min-width: 250px;
         }
+        .contact-info.show { display: block; }
+        .contact-info p { margin: 0.5rem 0; font-size: 0.95rem; font-weight: 500; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .contact-info.show {
-            display: block;
-        }
+        section { padding: 100px 10%; }
+        h2.section-title { font-size: 2.5rem; margin-bottom: 3rem; display: inline-block; position: relative; font-weight: 800; }
+        h2.section-title::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 40%; height: 4px; background: var(--purple-accent); border-radius: 2px; }
 
-        .contact-info p {
-            margin: 0.5rem 0;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Sections General */
-        section {
-            padding: 100px 10%;
-        }
-
-        h2.section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            display: inline-block;
-            position: relative;
-            font-weight: 800;
-        }
-
-        h2.section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 40%;
-            height: 4px;
-            background: var(--purple-accent);
-            border-radius: 2px;
-        }
-
-        /* Skills specific */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
+        .skills-container { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
         .skill-badge {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            color: var(--text-main);
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color); padding: 0.8rem 1.5rem; border-radius: 8px;
+            font-weight: 600; color: var(--text-main); transition: all 0.3s ease;
         }
-
         .skill-badge:hover {
-            border-color: var(--purple-accent);
-            box-shadow: 0 5px 15px var(--purple-glow);
-            transform: translateY(-3px);
-            color: var(--purple-accent);
+            border-color: var(--purple-accent); box-shadow: 0 5px 15px var(--purple-glow);
+            transform: translateY(-3px) scale(1.05); color: var(--purple-accent);
         }
 
-        /* Grid Layouts for Cards */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
 
-        /* Interactive Cards */
+        /* =========================================================
+           🎯 ULTIMATE CARD: Dynamic Glass + Glow Spotlight Hover 
+           ========================================================= */
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 2.5rem;
+            /* Apple Dynamic Glass */
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
+            padding: 2.5rem;
+            
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            
+            /* Entry Animation */
+            opacity: 0;
+            transform: translateY(40px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        box-shadow 0.4s ease, 
+                        background 0.4s ease;
         }
 
-        .card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .card.visible { opacity: 1; transform: translateY(0); }
 
+        /* 🪞 Glassmorphism Hover State */
         .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--purple-accent);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px var(--purple-glow);
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(40, 40, 40, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.1);
+            border-color: transparent; /* ซ่อนขอบเดิมเพื่อโชว์ขอบ Glow */
         }
 
-        .card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-            font-weight: 800;
+        /* 🔦 Glowing Border Spotlight (ใช้ ::before สร้างขอบแบบ Gradient) */
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px; /* ความหนาของขอบเรืองแสง */
+            /* Gradient วิ่งตามพิกัดเมาส์ --mouse-x, --mouse-y */
+            background: radial-gradient(
+                600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(168, 85, 247, 0.8),
+                transparent 40%
+            );
+            /* ตัดให้เห็นเฉพาะตรงขอบ (Mask) */
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
         }
+
+        /* 🔦 Glowing Background Spotlight (แสงนวลๆ ข้างใน Card) */
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(
+                400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(168, 85, 247, 0.12),
+                transparent 40%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .card:hover::before,
+        .card:hover::after {
+            opacity: 1; /* แสดงไฟ Spotlight เฉพาะตอนเอาเมาส์ชี้ Card */
+        }
+
+        /* Card Content Styles */
+        .card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--text-main); font-weight: 800; z-index: 2;}
+        .card h3 a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+        .card h3 a:hover { color: var(--purple-accent); }
+        .card h4 { font-size: 1rem; color: var(--purple-accent); margin-bottom: 1rem; font-weight: 600; z-index: 2;}
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; z-index: 2;}
         
-        .card h3 a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .card h3 a:hover {
-            color: var(--purple-accent);
-        }
-
-        .card h4 {
-            font-size: 1rem;
-            color: var(--purple-accent);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: auto;
-        }
-
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; z-index: 2; }
         .tech-tag {
-            background: rgba(168, 85, 247, 0.1);
-            color: #d8b4fe;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(168, 85, 247, 0.15); color: #e9d5ff; padding: 0.4rem 0.8rem;
+            border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(168, 85, 247, 0.3);
         }
-
-        .date-tag {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            display: block;
-            font-family: monospace;
-            font-weight: 500;
-        }
-        
+        .date-tag { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; display: block; font-family: monospace; font-weight: 500; z-index: 2;}
         .award-highlight {
-            display: inline-block;
-            background: linear-gradient(90deg, #a855f7, #c084fc);
-            color: #000000;
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: 0.5px;
-            align-self: flex-start;
+            display: inline-block; background: linear-gradient(90deg, #a855f7, #ec4899); color: #ffffff;
+            padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
+            margin-bottom: 1rem; letter-spacing: 0.5px; align-self: flex-start; z-index: 2;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-            margin-top: 50px;
-            background-color: var(--bg-card);
+        footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border-color); color: var(--text-muted); margin-top: 50px; background-color: rgba(20,20,20,0.8); }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 5%; }
+            .nav-links { display: none; }
+            section { padding: 70px 6%; }
+            h1 { font-size: 3rem; }
+            .typing-container { font-size: 1.5rem; }
+            h2.section-title { font-size: 2rem; }
+            .grid-container { grid-template-columns: 1fr; gap: 1.5rem; }
+            .card { padding: 1.8rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- 🧠 Neural Network Canvas -->
+    <canvas id="networkCanvas"></canvas>
+    
+    <!-- 🔦 Mouse Spotlight (แสงติดตามเมาส์แบบ Global) -->
+    <div class="mouse-spotlight" id="mouseSpotlight"></div>
 
     <nav>
         <a href="#" class="logo">Pornphipat<span>.</span></a>
@@ -378,7 +312,6 @@
     </nav>
 
     <section id="hero">
-        <div class="hero-glow"></div>
         <h1>Hi, I'm <span class="name-highlight">Pornphipat</span></h1>
         
         <div class="typing-wrapper">
@@ -460,7 +393,6 @@
         <h2 class="section-title">Featured Projects & Awards</h2>
         <div class="grid-container">
             
-            <!-- NEW PROJECT ADDED HERE -->
             <div class="card scroll-anim">
                 <div class="award-highlight">💻 Embedded AI Project</div>
                 <h3>Chief of Staff Dashboard</h3>
@@ -468,7 +400,7 @@
                 <p>
                     Developed an AI-powered personal dashboard for embedded systems (like Raspberry Pi) featuring an interactive touchscreen UI built with Pygame. The system acts as a smart assistant, summarizing daily tasks, emails, and calendar events using the Google Gemini API, and utilizes Google Cloud Pub/Sub for real-time notifications.
                     <br><br>
-                    <a href="https://github.com/7373R/embedded_final_proj" target="_blank" style="color: var(--purple-accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;">🔗 Source Code on GitHub</a>
+                    <a href="https://github.com/7373R/embedded_final_proj" target="_blank" style="color: var(--pink-accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;">🔗 Source Code on GitHub</a>
                 </p>
                 <div class="tech-stack">
                     <span class="tech-tag">Python</span>
@@ -534,67 +466,133 @@
     </footer>
 
     <script>
-        // Interactive Contact Info Toggle
-        document.getElementById('contactBtn').addEventListener('click', function() {
-            const infoBox = document.getElementById('contactInfo');
-            this.classList.toggle('active');
-            infoBox.classList.toggle('show');
+        // ==========================================
+        // 1. Mouse Event Master Controller 
+        // ==========================================
+        const mouseSpotlight = document.getElementById('mouseSpotlight');
+        const cards = document.querySelectorAll('.card');
+        let mouse = { x: -1000, y: -1000 };
+
+        window.addEventListener('mousemove', (e) => {
+            // อัปเดตพิกัดสำหรับ Neural Network
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            // 🔦 เลื่อนไฟ Spotlight วงใหญ่ตามเมาส์
+            if(mouseSpotlight) {
+                mouseSpotlight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            }
+
+            // 🔦 คำนวณพิกัดแสงเรืองแสงขอบกล่อง (Card Spotlight Glow)
+            for (const card of cards) {
+                const rect = card.getBoundingClientRect();
+                // คำนวณพิกัดเมาส์เทียบกับมุมซ้ายบนของแต่ละ Card
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // ส่งพิกัดเข้าไปยัง CSS Variables ของ Card นั้นๆ
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            }
         });
 
-        // Robust Typing Effect Fix
+        // ==========================================
+        // 2. Neural Network Canvas Logic
+        // ==========================================
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = Math.random() * 2 + 0.5;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(168, 85, 247, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                // เส้นเชื่อมระหว่างจุด
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(168, 85, 247, ${0.8 - dist/120})`; ctx.lineWidth = 0.5; ctx.stroke();
+                    }
+                }
+                // เส้นเชื่อมหาเมาส์
+                let dxMouse = particles[i].x - mouse.x; let dyMouse = particles[i].y - mouse.y;
+                let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                if (distMouse < 180) {
+                    ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = `rgba(236, 72, 153, ${0.8 - distMouse/180})`; ctx.lineWidth = 1.2; ctx.stroke();
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+        animateCanvas();
+
+        // ==========================================
+        // 3. UI Interactions (Typing & Toggles)
+        // ==========================================
+        document.getElementById('contactBtn').addEventListener('click', function() {
+            document.getElementById('contactInfo').classList.toggle('show');
+            this.classList.toggle('active');
+        });
+
         const words = ["Computer Engineer.", "AI & ML Developer.", "Tech Innovator.", "Leader."];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
 
         function typeWriter() {
             const currentWord = words[wordIndex];
             const typeElement = document.getElementById('typewriter');
             
-            if (isDeleting) {
-                // ลบข้อความ
-                typeElement.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                // พิมพ์ข้อความ
-                typeElement.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-            }
+            typeElement.textContent = isDeleting ? currentWord.substring(0, charIndex - 1) : currentWord.substring(0, charIndex + 1);
+            charIndex += isDeleting ? -1 : 1;
 
-            // ความเร็วของการพิมพ์/ลบ
-            let typingSpeed = isDeleting ? 50 : 100;
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                // พิมพ์สุดคำแล้ว รอ 2 วินาทีก่อนลบ
-                typingSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                // ลบสุดคำแล้ว เปลี่ยนคำต่อไป รอ 0.5 วินาทีก่อนเริ่มพิมพ์ใหม่
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                typingSpeed = 500;
-            }
-
+            let typingSpeed = isDeleting ? 40 : 100;
+            if (!isDeleting && charIndex === currentWord.length) { typingSpeed = 2000; isDeleting = true; } 
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; typingSpeed = 500; }
             setTimeout(typeWriter, typingSpeed);
         }
 
-        // เรียกใช้งานตอนโหลดหน้าเว็บ
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", () => {
             typeWriter();
+            if(mouseSpotlight) mouseSpotlight.style.transform = `translate(${window.innerWidth / 2}px, ${window.innerHeight / 2}px)`;
         });
 
-        // Interactive Scroll Animation (Intersection Observer)
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
+        document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
 
-        document.querySelectorAll('.scroll-anim').forEach((el) => {
-            observer.observe(el);
-        });
     </script>
 </body>
 </html>
