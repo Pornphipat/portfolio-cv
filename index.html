@@ -509,7 +509,8 @@
             }
         }
 
-        for (let i = 0; i < 70; i++) particles.push(new Particle());
+        // เพิ่มจำนวน Node เป็น 150 จุด (แก้ไขตรงนี้ถ้าอยากได้ความหนาแน่นเพิ่มขึ้นหรือลดลง)
+        for (let i = 0; i < 200; i++) particles.push(new Particle());
 
         function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
