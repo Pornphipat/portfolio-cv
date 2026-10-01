@@ -1,0 +1,6 @@
+# Redirects www.pornphipat.space/* to pornphipat.space/*. Cloudflare creates the www DNS record for the custom domain.
+# Deploy from this folder: npx wrangler deploy  (not part of the GitHub Action; it rarely changes)
+name = "www-redirect"
+main = "index.js"
+compatibility_date = "2026-09-01"
+routes = [{ pattern = "www.pornphipat.space", custom_domain = true }]
