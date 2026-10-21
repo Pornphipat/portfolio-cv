@@ -3,613 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pornphipat Pholprueksa | Portfolio</title>
+    <title>Pornphipat Pholprueksa</title>
+    <meta name="description" content="Final-year Computer Engineering student at Mahidol University building AI tools in Python. Available from January 2027.">
     <link rel="icon" type="image/svg+xml" href="gemini-svg.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-
+        /* Sticky purple panel (who + contact always visible), content scrolls beside it */
         :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #141414;
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --purple-accent: #a855f7;
-            --pink-accent: #ec4899;
-            --purple-glow: rgba(168, 85, 247, 0.4);
-            --border-color: rgba(255, 255, 255, 0.08);
+            --panel: #2b1250;
+            --panel-text: #f4eefc;
+            --panel-muted: #c7b6e2;
+            --bg: #fbf9fd;
+            --text: #1c1726;
+            --muted: #615a70;
+            --purple: #642aa5;
+            --rule: #e8e1f0;
+            --green: #5ee08f;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); font: 17px/1.6 "Instrument Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+        :focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; border-radius: 4px; }
+        .layout { display: grid; grid-template-columns: minmax(320px, 38%) 1fr; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+        aside {
+            position: sticky; top: 0; height: 100vh;
+            display: flex; flex-direction: column;
+            padding: 64px 48px 40px;
+            background: var(--panel); color: var(--panel-text);
         }
+        h1 { font-size: clamp(36px, 3.6vw, 52px); line-height: 1.04; font-weight: 700; letter-spacing: -0.025em; }
+        .role { margin-top: 16px; font-size: 19px; color: var(--panel-muted); max-width: 22em; }
+        .status { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; font-size: 15px; font-weight: 500; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+        .toc { list-style: none; margin-top: 48px; padding-left: 0; }
+        .toc a { display: flex; align-items: center; gap: 12px; padding: 7px 0; color: var(--panel-muted); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+        .toc a::before { content: ""; width: 24px; height: 1px; background: currentColor; transition: width 0.2s; }
+        .toc a:hover, .toc a.on { color: var(--panel-text); }
+        .toc a.on::before { width: 48px; }
+        .contact { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; padding-top: 32px; }
+        .btn { display: inline-flex; align-items: center; height: 42px; padding: 0 16px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.25); font-size: 15px; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: rgba(255, 255, 255, 0.1); }
+        .btn.solid { background: var(--panel-text); color: var(--panel); border-color: transparent; }
+        .btn.solid:hover { background: #fff; }
+        .link-btn { display: inline-flex; align-items: center; height: 36px; margin-top: 12px; padding: 0 14px; border-radius: 10px; background: #efe7f9; color: var(--purple); font-size: 15px; font-weight: 600; }
+        .link-btn:hover { background: #e4d6f5; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.7;
-            /* เพิ่ม Base Layer ให้เห็น Apple Glass ชัดขึ้น */
-            background-image: radial-gradient(circle at 15% 50%, rgba(168, 85, 247, 0.08), transparent 25%),
-                              radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
+        main { max-width: 760px; padding: 64px 56px 48px; }
+        section + section { margin-top: 80px; }
+        h2 { font-size: 15px; font-weight: 600; color: var(--purple); margin-bottom: 20px; }
+        /* Row: what kind / when on the left, details on the right */
+        .row { display: grid; grid-template-columns: 8.5em 1fr; gap: 0 24px; padding: 22px 0; border-top: 1px solid var(--rule); }
+        .row:last-child { border-bottom: 1px solid var(--rule); }
+        .kind { color: var(--muted); font-size: 14px; line-height: 1.5; padding-top: 3px; }
+        h3 { font-size: 19px; line-height: 1.35; font-weight: 600; letter-spacing: -0.01em; }
+        .row p, .row ul { margin-top: 6px; color: var(--muted); }
+        ul { padding-left: 1.1em; }
+        li + li { margin-top: 4px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+        .tags span { padding: 3px 10px; border-radius: 999px; background: #efe7f9; color: var(--purple); font-size: 13px; font-weight: 500; }
+
+        .featured h3 { font-size: 24px; }
+        .featured .summary { color: var(--text); font-size: 18px; }
+        .hard { margin-top: 14px; padding: 14px 16px; border-left: 3px solid var(--purple); background: #f4eefa; border-radius: 0 8px 8px 0; }
+        .hard strong { color: var(--text); }
+
+        .kv { display: grid; grid-template-columns: 8.5em 1fr; gap: 10px 24px; }
+        .kv dt { color: var(--muted); font-size: 15px; }
+        blockquote { margin-top: 14px; font-style: italic; color: var(--muted); }
+        footer { margin-top: 64px; color: var(--muted); font-size: 14px; }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            aside { position: static; height: auto; padding: 48px 20px 32px; }
+            .toc { display: none; }
+            .contact { margin-top: 0; }
+            main { padding: 40px 20px; }
+            .row, .kv { grid-template-columns: 1fr; }
+            .kind { padding: 0 0 2px; }
+            .kv dd { margin-bottom: 8px; }
         }
-
-        /* --- 🧠 Background Canvas (Neural Network) --- */
-        canvas#networkCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -3;
-            pointer-events: none;
-        }
-
-        /* --- 🔦 Mouse Spotlight --- */
-        .mouse-spotlight {
-            position: fixed;
-            top: -225px; /* Offset Center (450/2) */
-            left: -225px;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, var(--purple-glow) 0%, transparent 60%);
-            z-index: -2;
-            pointer-events: none;
-            filter: blur(40px);
-            will-change: transform;
-            /* Transition ทำให้ไฟสปอตไลต์ตามเมาส์แบบมีน้ำหนักหนืดๆ ดูแพง */
-            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
-            animation: pulse-light 4s infinite alternate;
-        }
-
-        @keyframes pulse-light {
-            0% { opacity: 0.4; transform: scale(0.9); }
-            100% { opacity: 0.8; transform: scale(1.1); }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(20px) saturate(180%);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .logo { font-weight: 800; font-size: 1.5rem; color: var(--text-main); text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: var(--purple-accent); }
-        .nav-links a { color: var(--text-main); text-decoration: none; margin-left: 2rem; font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease; }
-        .nav-links a:hover { color: var(--purple-accent); }
-
-        /* Hero Section */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-            position: relative;
-        }
-
-        h1 { font-size: 4.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
-
-        .name-highlight {
-            color: var(--purple-accent);
-        }
-
-        .typing-wrapper { min-height: 3.5rem; margin-bottom: 1.5rem; }
-        .typing-container {
-            display: inline-block; font-size: 2rem; font-weight: 600; color: var(--text-muted);
-            border-right: 3px solid var(--purple-accent); padding-right: 8px;
-            animation: blink 0.7s infinite; white-space: nowrap;
-        }
-        @keyframes blink { 50% { border-color: transparent; } }
-
-        /* Contact & Buttons */
-        .contact-wrapper { margin-top: 2rem; position: relative; }
-        .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-        .contact-links a, .contact-btn {
-            color: var(--text-main); text-decoration: none; border: 1px solid var(--border-color);
-            padding: 0.6rem 1.2rem; border-radius: 30px; font-size: 0.9rem; font-weight: 600;
-            transition: all 0.3s ease; background: rgba(255, 255, 255, 0.03); cursor: pointer;
-            display: inline-flex; align-items: center;
-            backdrop-filter: blur(10px);
-        }
-        .contact-links a:hover, .contact-btn:hover, .contact-btn.active {
-            border-color: var(--purple-accent); background: rgba(168, 85, 247, 0.15);
-            color: var(--text-main); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .contact-info {
-            display: none; position: absolute; top: 100%; left: 0; margin-top: 1rem;
-            background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--purple-accent); padding: 1.2rem 1.5rem; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(168, 85, 247, 0.2);
-            animation: fadeIn 0.3s ease; z-index: 10; min-width: 250px;
-        }
-        .contact-info.show { display: block; }
-        .contact-info p { margin: 0.5rem 0; font-size: 0.95rem; font-weight: 500; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        section { padding: 100px 10%; }
-        h2.section-title { font-size: 2.5rem; margin-bottom: 3rem; display: inline-block; position: relative; font-weight: 800; }
-        h2.section-title::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 40%; height: 4px; background: var(--purple-accent); border-radius: 2px; }
-
-        .skills-container { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
-        .skill-badge {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color); padding: 0.8rem 1.5rem; border-radius: 8px;
-            font-weight: 600; color: var(--text-main); transition: all 0.3s ease;
-        }
-        .skill-badge:hover {
-            border-color: var(--purple-accent); box-shadow: 0 5px 15px var(--purple-glow);
-            transform: translateY(-3px) scale(1.05); color: var(--purple-accent);
-        }
-
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-
-        /* =========================================================
-           🎯 ULTIMATE CARD: Dynamic Glass + Glow Spotlight Hover 
-           ========================================================= */
-        .card {
-            /* Apple Dynamic Glass */
-            background: rgba(30, 30, 30, 0.4);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 2.5rem;
-            
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            
-            /* Entry Animation */
-            opacity: 0;
-            transform: translateY(40px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        box-shadow 0.4s ease, 
-                        background 0.4s ease;
-        }
-
-        .card.visible { opacity: 1; transform: translateY(0); }
-
-        /* 🪞 Glassmorphism Hover State */
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: rgba(40, 40, 40, 0.6);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.1);
-            border-color: transparent; /* ซ่อนขอบเดิมเพื่อโชว์ขอบ Glow */
-        }
-
-        /* 🔦 Glowing Border Spotlight (ใช้ ::before สร้างขอบแบบ Gradient) */
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px; /* ความหนาของขอบเรืองแสง */
-            /* Gradient วิ่งตามพิกัดเมาส์ --mouse-x, --mouse-y */
-            background: radial-gradient(
-                600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(168, 85, 247, 0.8),
-                transparent 40%
-            );
-            /* ตัดให้เห็นเฉพาะตรงขอบ (Mask) */
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* 🔦 Glowing Background Spotlight (แสงนวลๆ ข้างใน Card) */
-        .card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(
-                400px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-                rgba(168, 85, 247, 0.12),
-                transparent 40%
-            );
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .card:hover::before,
-        .card:hover::after {
-            opacity: 1; /* แสดงไฟ Spotlight เฉพาะตอนเอาเมาส์ชี้ Card */
-        }
-
-        /* Card Content Styles */
-        .card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--text-main); font-weight: 800; z-index: 2;}
-        .card h3 a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
-        .card h3 a:hover { color: var(--purple-accent); }
-        .card h4 { font-size: 1rem; color: var(--purple-accent); margin-bottom: 1rem; font-weight: 600; z-index: 2;}
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; z-index: 2;}
-        
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; z-index: 2; }
-        .tech-tag {
-            background: rgba(168, 85, 247, 0.15); color: #e9d5ff; padding: 0.4rem 0.8rem;
-            border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(168, 85, 247, 0.3);
-        }
-        .date-tag { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; display: block; font-family: monospace; font-weight: 500; z-index: 2;}
-        .award-highlight {
-            display: inline-block; background: linear-gradient(90deg, #a855f7, #ec4899); color: #ffffff;
-            padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 800;
-            margin-bottom: 1rem; letter-spacing: 0.5px; align-self: flex-start; z-index: 2;
-        }
-
-        footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border-color); color: var(--text-muted); margin-top: 50px; background-color: rgba(20,20,20,0.8); }
-
-        @media (max-width: 768px) {
-            nav { padding: 1rem 5%; }
-            .nav-links { display: none; }
-            section { padding: 70px 6%; }
-            h1 { font-size: 3rem; }
-            .typing-container { font-size: 1.5rem; }
-            h2.section-title { font-size: 2rem; }
-            .grid-container { grid-template-columns: 1fr; gap: 1.5rem; }
-            .card { padding: 1.8rem; }
-        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
     </style>
 </head>
 <body>
-
-    <!-- 🧠 Neural Network Canvas -->
-    <canvas id="networkCanvas"></canvas>
-    
-    <!-- 🔦 Mouse Spotlight (แสงติดตามเมาส์แบบ Global) -->
-    <div class="mouse-spotlight" id="mouseSpotlight"></div>
-
-    <nav>
-        <a href="#" class="logo">Pornphipat<span>.</span></a>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects & Awards</a>
-        </div>
-    </nav>
-
-    <section id="hero">
-        <h1>Hi, I'm <span class="name-highlight">Pornphipat</span></h1>
-        
-        <div class="typing-wrapper">
-            <span class="typing-container" id="typewriter"></span>
-        </div>
-
-        <p style="max-width: 600px; color: var(--text-muted); font-size: 1.1rem; font-weight: 400;">
-            Computer Engineering student at Mahidol University. I specialize in Computer Vision, Machine Learning, and developing impactful tech solutions that bridge engineering and sustainability.
-        </p>
-        
-        <div class="contact-wrapper">
-            <div class="contact-links">
-                <button id="contactBtn" class="contact-btn">Contact Me</button>
-                <a href="https://www.linkedin.com/in/pornphipat-pho" target="_blank">LinkedIn</a>
-                <a href="https://github.com/7373R" target="_blank">GitHub</a>
-            </div>
-            
-            <div id="contactInfo" class="contact-info">
-                <p>📧 pornphipat.pho@gmail.com</p>
-                <p>📞 095-631-9708</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="scroll-anim" style="max-width: 800px;">
-            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
-                Hi there! I'm <strong>Pornphipat Pholprueksa</strong>, a Computer Engineering student at Mahidol University (Expected Graduation: 2027). I am a tech enthusiast who loves solving complex engineering problems and turning data into actionable insights.
-            </p>
-            <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--text-muted);">
-                My core technical interests lie in <strong>Data Engineering</strong>, <strong>Machine Learning</strong> (specifically Federated Learning & RAG), <strong>NoSQL database optimization</strong>, and <strong>Embedded Systems</strong>. I am driven by the challenge of designing high-performance architecture with structural precision.
-            </p>
-            
-            <h3 style="margin-bottom: 1rem; color: var(--purple-accent);">📚 Beyond the Code</h3>
-            <p style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--text-muted);">
-                When I'm not writing code or optimizing databases, I immerse myself in activities that refine my perspectives and challenge my limits:
-            </p>
-            <ul style="list-style: none; margin-bottom: 2rem; color: var(--text-muted);">
-                <li style="margin-bottom: 1rem;">
-                    <strong>Philosophy & Literature:</strong> Deeply interested in philosophical concepts and translated literature. Exploring these works helps expand my analytical thinking and offers unique outlooks on the world.
-                </li>
-                <li>
-                    <strong>Running & Camping:</strong> A dedicated runner while also enjoying camping to reconnect with nature and clear my mind.
-                </li>
+    <div class="layout">
+        <aside>
+            <h1>Pornphipat Pholprueksa</h1>
+            <p class="role">Final-year Computer Engineering student at Mahidol University. I build AI tools in Python: retrieval, computer vision and APIs.</p>
+            <p class="status"><span class="dot" aria-hidden="true"></span>Available from January 2027</p>
+            <ul class="toc">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#awards">Competitions</a></li>
+                <li><a href="#leadership">Leadership</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
-
-            <div style="background: rgba(168, 85, 247, 0.1); border-left: 4px solid var(--purple-accent); padding: 1.5rem; border-radius: 0 12px 12px 0;">
-                <h4 style="margin-bottom: 0.5rem; color: var(--text-main);">My Philosophy</h4>
-                <p style="font-style: italic; color: var(--text-main);">
-                    "Give your absolute best in everything you do. Whether the outcome is a success or a failure, it will always be a valuable experience and a definitive opportunity to learn and grow."
-                </p>
+            <div class="contact">
+                <a class="btn solid" href="resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+                <a class="btn" href="mailto:pornphipat.pho@gmail.com">Email</a>
+                <a class="btn" href="https://github.com/7373R" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn" href="https://www.linkedin.com/in/pornphipat-pho" target="_blank" rel="noopener">LinkedIn</a>
             </div>
-        </div>
+        </aside>
 
-        <h2 class="section-title" style="margin-top: 4rem;">Skills & Technologies</h2>
-        <div class="skills-container scroll-anim">
-            <div class="skill-badge">Python (Intermediate)</div>
-            <div class="skill-badge">C / C++</div>
-            <div class="skill-badge">SQL & JavaScript</div>
-            <div class="skill-badge">Java</div>
-            <div class="skill-badge">OpenCV</div>
-            <div class="skill-badge">YOLOv8 & YOLOv11L</div>
-            <div class="skill-badge">PyTorch & TensorFlow</div>
-            <div class="skill-badge">Pandas & NumPy</div>
-            <div class="skill-badge">LangChain</div>
-            <div class="skill-badge">Vector Databases</div>
-            <div class="skill-badge">Federated Learning & RAG Concepts</div>
-            <div class="skill-badge">Docker / Colima</div>
-            <div class="skill-badge">NoSQL Databases</div>
-            <div class="skill-badge">Typst</div>
-            <div class="skill-badge">LaTeX</div>
-            <div class="skill-badge">Git</div>
-            <div class="skill-badge">Leadership & Project Management</div>
-        </div>
-    </section>
-
-    <section id="experience">
-        <h2 class="section-title">Leadership & Experience</h2>
-        <div class="grid-container">
-            <div class="card scroll-anim">
-                <span class="date-tag">Jul 2025 - Apr 2026</span>
-                <h3>President, GearLeague</h3>
-                <h4>Inter-Engineering Sports Event</h4>
-                <p>Led collaboration among 9 engineering universities, managing over 100 staff members to organize a national sports competition. Built strong inter-university relationships and long-term institutional connections.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Leadership</span>
-                    <span class="tech-tag">Large-scale Management</span>
+        <main>
+            <section id="projects">
+                <h2>Projects</h2>
+                <div class="row featured">
+                    <div class="kind">Capstone<br>2026 – now</div>
+                    <div>
+                        <h3>Muny: AI research assistant for antibiotic drug design</h3>
+                        <p>MANORAA, Mahidol University. AI lead in a team of 3.</p>
+                        <p class="summary">Answers questions about 406 protein–ligand structures (51 antibiotics), and refuses when the data has no answer.</p>
+                        <ul>
+                            <li>Hybrid retrieval: vector search plus exact lexical match, so PDB IDs and ligand codes hit the right record.</li>
+                            <li>An anti-hallucination guard that refuses instead of inventing evidence.</li>
+                            <li>A FastAPI service with API-key and session-token auth, rate limiting and automated API tests, deployed with Docker on the university server.</li>
+                        </ul>
+                        <p class="hard"><strong>Hardest problem:</strong> exact-ID questions kept returning the wrong structure, because an ID like 1ABC means nothing to an embedding model. I drop distant vector hits so those queries fall through to exact lexical search, and keep on-screen UI text out of the search query.</p>
+                        <div class="tags"><span>Python</span><span>FastAPI</span><span>ChromaDB</span><span>Ollama</span><span>Docker</span></div>
+                        <p>Code is private (university project). Demo on request.</p>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="kind">Hackathon<br>2026</div>
+                    <div>
+                        <h3>Sellified</h3>
+                        <p>Built at UniHack 2026. A 10-screen interactive prototype of a seller trust score that helps social-media buyers tell honest shops from scam pages, using reviews backed by OCR-checked transfer slips.</p>
+                        <a class="link-btn" href="/sellified">Open live prototype</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="kind">Academic</div>
+                    <div>
+                        <h3>Real-time smoking detection</h3>
+                        <p>Spots people, cigarettes and smoke indoors in real time with YOLOv11L and OpenCV, confirms a violation with proximity logic and sends a LINE alert.</p>
+                        <div class="tags"><span>Python</span><span>Ultralytics YOLO</span><span>OpenCV</span><span>LINE Messaging API</span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="kind">Embedded systems course</div>
+                    <div>
+                        <h3>Chief of Staff Dashboard</h3>
+                        <p>A Raspberry Pi touchscreen dashboard that summarises tasks, email and calendar with the Gemini API and gets real-time notifications through Google Cloud Pub/Sub.</p>
+                        <a class="link-btn" href="https://github.com/7373R/embedded_final_proj" target="_blank" rel="noopener">View source</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="kind">Academic</div>
+                    <div>
+                        <h3>Stroke risk prediction</h3>
+                        <p>Predicts stroke risk from heavily imbalanced medical data. SMOTE-NC and Tomek links balance the classes, and a tuned CatBoost model reached 88% accuracy and 64% recall.</p>
+                    </div>
+                </div>
+            </section>
 
-            <div class="card scroll-anim">
-                <span class="date-tag">Aug 2023 - Present</span>
-                <h3>President of the Department</h3>
-                <h4>Computer Engineering, Mahidol University</h4>
-                <p>Represented and supported students within the department. Promoted communication, collaboration, and empathy through open discussions and peer support initiatives.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Communication</span>
-                    <span class="tech-tag">Student Advocacy</span>
+            <section id="experience">
+                <h2>Experience</h2>
+                <div class="row">
+                    <div class="kind">Aug 2026 – now</div>
+                    <div>
+                        <h3>Research Assistant, Ontario Tech University</h3>
+                        <p>ASEAN-Canada SEED Scholar in Prof. Patrick Hung's HCI lab, Canada.</p>
+                        <ul>
+                            <li>Work hands-on with Unitree Go1 and Go2 quadruped robots using ROS 2 for human–robot interaction research.</li>
+                            <li>Research and summarise HCI literature for the lab's projects.</li>
+                            <li>Assist Prof. Hung in teaching the university's HCI course.</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="card scroll-anim">
-                <span class="date-tag">Jan 2024 - Dec 2024</span>
-                <h3>President, ClickCamp15</h3>
-                <h4>Mahidol University</h4>
-                <p>Directed a 4-day computer engineering camp with 500+ applicants and 80 participants. Provided high school students with practical learning experiences while fostering growth among 100+ staff members.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Project Management</span>
-                    <span class="tech-tag">Event Organization</span>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section id="projects">
-        <h2 class="section-title">Featured Projects & Awards</h2>
-        <div class="grid-container">
-            
-            <div class="card scroll-anim">
-                <div class="award-highlight">💻 Embedded AI Project</div>
-                <h3>Chief of Staff Dashboard</h3>
-                <h4>AI-Powered Smart Display</h4>
-                <p>
-                    Developed an AI-powered personal dashboard for embedded systems (like Raspberry Pi) featuring an interactive touchscreen UI built with Pygame. The system acts as a smart assistant, summarizing daily tasks, emails, and calendar events using the Google Gemini API, and utilizes Google Cloud Pub/Sub for real-time notifications.
-                    <br><br>
-                    <a href="https://github.com/7373R/embedded_final_proj" target="_blank" style="color: var(--pink-accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;">🔗 Source Code on GitHub</a>
-                </p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Gemini AI</span>
-                    <span class="tech-tag">Pygame</span>
-                    <span class="tech-tag">Google Cloud</span>
-                </div>
-            </div>
-            
-            <div class="card scroll-anim">
-                <div class="award-highlight">🏆 3rd Place - Invent for the Planet 2026</div>
-                <h3>CelluRICE</h3>
-                <h4>Green-Tech & Circular Bioeconomy</h4>
-                <p>Developed a solution to mitigate PM 2.5 pollution by transforming agricultural rice stubble into high-value cellulose. The process utilizes mechanical milling, alkaline treatment (NaOH), and oxidative bleaching (H2O2) to extract pure cellulose, turning agricultural waste into profitable industrial material.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Green Technology</span>
-                    <span class="tech-tag">Innovation</span>
-                    <span class="tech-tag">Sustainability</span>
-                </div>
-            </div>
+            <section id="awards">
+                <h2>Competitions and awards</h2>
+                <div class="row"><div class="kind">2024 – 2026</div><div><h3>Invent for the Planet</h3><ul><li>1st place 2024: a portable renewable-energy battery for African cities.</li><li>3rd place 2025: a gas-sensor smart fridge that cuts food waste.</li><li>3rd place 2026: CelluRICE, turning rice stubble into cellulose to cut PM2.5.</li></ul></div></div>
+                <div class="row"><div class="kind">2026</div><div><h3>CFA Society Thailand AI × Finance Hackathon</h3><p>ContextOS matches market events to historical analogues (1970–2024), with a multi-agent demo that scores how trustworthy a financial claim is.</p></div></div>
+                <div class="row"><div class="kind">2025 – 2026</div><div><h3>UniHack and InterCSII hackathons</h3><p>Sellified (above) for UniHack 2026's AI &amp; Safety track, and WasteHub, a recycling marketplace with rewards, at InterCSII 2025.</p></div></div>
+                <div class="row"><div class="kind">2025</div><div><h3>Certifications</h3><p>AWS Cloud &amp; AI: Building and Scaling Agentic AI Workflows. Cyber Warrior Hackathon training programme (CCIB × KMUTT).</p></div></div>
+            </section>
 
-            <div class="card scroll-anim">
-                <div class="award-highlight">💻 Academic Project</div>
-                <h3>Real-Time Smoking Detection</h3>
-                <h4>Computer Vision System</h4>
-                <p>Developed a real-time detection system to enforce smoke-free policies indoors using YOLOv8/YOLOv11L and OpenCV. The AI model identifies Persons, Cigarettes, and Smoke, utilizing custom proximity logic to confirm violations and trigger alerts via the LINE Messaging API.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">YOLO</span>
-                    <span class="tech-tag">OpenCV</span>
-                    <span class="tech-tag">LINE API</span>
-                </div>
-            </div>
+            <section id="leadership">
+                <h2>Leadership</h2>
+                <div class="row"><div class="kind">2025 – 2026</div><div><h3>President, GearLeague</h3><p>Led 9 engineering universities and 100+ staff to run a national inter-engineering sports competition.</p></div></div>
+                <div class="row"><div class="kind">2023 – now</div><div><h3>President, Computer Engineering Department</h3><p>Represent and support students through open discussion and peer support.</p></div></div>
+                <div class="row"><div class="kind">2024</div><div><h3>President, ClickCamp15</h3><p>Led a 4-day camp for 80 high-school students (500+ applicants) with 100+ staff.</p></div></div>
+                <div class="row"><div class="kind">2024</div><div><h3>Head of Freshmen Welcoming Committee</h3><p>Managed 50 students to welcome 100+ freshmen with the Student Union and other faculties.</p></div></div>
+            </section>
 
-            <div class="card scroll-anim">
-                <div class="award-highlight">📊 Academic Project</div>
-                <h3>Stroke Risk Prediction Model</h3>
-                <h4>Machine Learning Pipeline</h4>
-                <p>Analyzed medical data and built ML models to predict stroke risk, tackling extreme class imbalance. Utilized SMOTE-NC and Tomek Links for data synthesis and cleaning. The final CatBoost model, optimized via GridSearchCV, achieved 88% accuracy and 64% recall on imbalanced data.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">CatBoost</span>
-                    <span class="tech-tag">SMOTE-NC</span>
-                    <span class="tech-tag">Data Science</span>
-                </div>
-            </div>
-            
-            <div class="card scroll-anim">
-                <div class="award-highlight">🏆 1st Place - Invent for the Planet 2024</div>
-                <h3>Decentralized Power Access</h3>
-                <h4>Global Innovation Challenge</h4>
-                <p>Designed a portable renewable-energy battery system tailored for African urban areas, enabling reliable and decentralized power access.</p>
-                <div class="tech-stack">
-                    <span class="tech-tag">Ideation</span>
-                    <span class="tech-tag">Hardware Design</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Pornphipat Pholprueksa.</p>
-    </footer>
+            <section id="about">
+                <h2>Skills</h2>
+                <dl class="kv">
+                    <dt>Languages</dt><dd>Python, SQL, JavaScript, C, C++, Java</dd>
+                    <dt>Frameworks</dt><dd>FastAPI, LangChain, PyTorch, TensorFlow, OpenCV, Ultralytics, Pandas, NumPy</dd>
+                    <dt>Tools</dt><dd>Docker, Git and GitHub, ChromaDB, Ollama, Roboflow, LINE Messaging API</dd>
+                    <dt>Spoken</dt><dd>Thai (native), English</dd>
+                </dl>
+                <h2 style="margin-top: 56px">About</h2>
+                <p>I like hard engineering problems and turning data into something people can use. Right now that means AI engineering: retrieval, LLM apps and computer vision. Away from code I read philosophy and translated literature, run, and go camping.</p>
+                <blockquote>"Give your absolute best in everything you do. Whether the outcome is a success or a failure, it will always be a valuable experience and a definitive opportunity to learn and grow."</blockquote>
+                <footer>&copy; 2026 Pornphipat Pholprueksa</footer>
+            </section>
+        </main>
+    </div>
 
     <script>
-        // ==========================================
-        // 1. Mouse Event Master Controller 
-        // ==========================================
-        const mouseSpotlight = document.getElementById('mouseSpotlight');
-        const cards = document.querySelectorAll('.card');
-        let mouse = { x: -1000, y: -1000 };
-
-        window.addEventListener('mousemove', (e) => {
-            // อัปเดตพิกัดสำหรับ Neural Network
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-
-            // 🔦 เลื่อนไฟ Spotlight วงใหญ่ตามเมาส์
-            if(mouseSpotlight) {
-                mouseSpotlight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            }
-
-            // 🔦 คำนวณพิกัดแสงเรืองแสงขอบกล่อง (Card Spotlight Glow)
-            for (const card of cards) {
-                const rect = card.getBoundingClientRect();
-                // คำนวณพิกัดเมาส์เทียบกับมุมซ้ายบนของแต่ละ Card
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                // ส่งพิกัดเข้าไปยัง CSS Variables ของ Card นั้นๆ
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            }
-        });
-
-        // ==========================================
-        // 2. Neural Network Canvas Logic
-        // ==========================================
-        const canvas = document.getElementById('networkCanvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, particles = [];
-
-        function initCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 1.2;
-                this.vy = (Math.random() - 0.5) * 1.2;
-                this.radius = Math.random() * 2 + 0.5;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(168, 85, 247, 0.4)';
-                ctx.fill();
-            }
-        }
-
-        // เพิ่มจำนวน Node เป็น 150 จุด (แก้ไขตรงนี้ถ้าอยากได้ความหนาแน่นเพิ่มขึ้นหรือลดลง)
-        for (let i = 0; i < 200; i++) particles.push(new Particle());
-
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update(); particles[i].draw();
-                // เส้นเชื่อมระหว่างจุด
-                for (let j = i + 1; j < particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(168, 85, 247, ${0.8 - dist/120})`; ctx.lineWidth = 0.5; ctx.stroke();
-                    }
-                }
-                // เส้นเชื่อมหาเมาส์
-                let dxMouse = particles[i].x - mouse.x; let dyMouse = particles[i].y - mouse.y;
-                let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-                if (distMouse < 180) {
-                    ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = `rgba(236, 72, 153, ${0.8 - distMouse/180})`; ctx.lineWidth = 1.2; ctx.stroke();
-                }
-            }
-            requestAnimationFrame(animateCanvas);
-        }
-        animateCanvas();
-
-        // ==========================================
-        // 3. UI Interactions (Typing & Toggles)
-        // ==========================================
-        document.getElementById('contactBtn').addEventListener('click', function() {
-            document.getElementById('contactInfo').classList.toggle('show');
-            this.classList.toggle('active');
-        });
-
-        const words = ["Computer Engineer.", "AI & ML Developer.", "Tech Innovator.", "Leader."];
-        let wordIndex = 0, charIndex = 0, isDeleting = false;
-
-        function typeWriter() {
-            const currentWord = words[wordIndex];
-            const typeElement = document.getElementById('typewriter');
-            
-            typeElement.textContent = isDeleting ? currentWord.substring(0, charIndex - 1) : currentWord.substring(0, charIndex + 1);
-            charIndex += isDeleting ? -1 : 1;
-
-            let typingSpeed = isDeleting ? 40 : 100;
-            if (!isDeleting && charIndex === currentWord.length) { typingSpeed = 2000; isDeleting = true; } 
-            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; typingSpeed = 500; }
-            setTimeout(typeWriter, typingSpeed);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            typeWriter();
-            if(mouseSpotlight) mouseSpotlight.style.transform = `translate(${window.innerWidth / 2}px, ${window.innerHeight / 2}px)`;
-        });
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
-
+        // Highlight the section in view in the side nav
+        const links = [...document.querySelectorAll('.toc a')];
+        const io = new IntersectionObserver(entries => entries.forEach(e => {
+            if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.hash === '#' + e.target.id));
+        }), { rootMargin: '-30% 0px -60% 0px' });
+        document.querySelectorAll('main section').forEach(s => io.observe(s));
     </script>
 </body>
 </html>
