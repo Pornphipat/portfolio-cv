@@ -47,6 +47,7 @@
         .contact { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; padding-top: 32px; }
         .btn { display: inline-flex; align-items: center; height: 42px; padding: 0 16px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.25); font-size: 15px; font-weight: 600; transition: background 0.2s; }
         .btn:hover { background: rgba(255, 255, 255, 0.1); }
+        button.btn { font-family: inherit; color: inherit; background: none; cursor: pointer; }
         .btn.solid { background: var(--panel-text); color: var(--panel); border-color: transparent; }
         .btn.solid:hover { background: #fff; }
         .link-btn { display: inline-flex; align-items: center; height: 36px; margin-top: 12px; padding: 0 14px; border-radius: 10px; background: #efe7f9; color: var(--purple); font-size: 15px; font-weight: 600; }
@@ -104,7 +105,7 @@
             </ul>
             <div class="contact">
                 <a class="btn solid" href="resume.pdf" target="_blank" rel="noopener">Download résumé</a>
-                <a class="btn" href="mailto:pornphipat.pho@gmail.com">Email</a>
+                <button class="btn" id="mail" type="button" data-email="pornphipat.pho@gmail.com" title="pornphipat.pho@gmail.com" aria-live="polite">Copy email</button>
                 <a class="btn" href="https://github.com/7373R" target="_blank" rel="noopener">GitHub</a>
                 <a class="btn" href="https://www.linkedin.com/in/pornphipat-pho" target="_blank" rel="noopener">LinkedIn</a>
             </div>
@@ -211,6 +212,14 @@
     </div>
 
     <script>
+        // Copy email; if the clipboard is blocked, show the address instead
+        const mail = document.getElementById('mail');
+        mail.addEventListener('click', async () => {
+            try { await navigator.clipboard.writeText(mail.dataset.email); mail.textContent = 'Copied'; }
+            catch (e) { mail.textContent = mail.dataset.email; return; }
+            setTimeout(() => { mail.textContent = 'Copy email'; }, 2000);
+        });
+
         // Highlight the section in view in the side nav
         const links = [...document.querySelectorAll('.toc a')];
         const io = new IntersectionObserver(entries => entries.forEach(e => {
